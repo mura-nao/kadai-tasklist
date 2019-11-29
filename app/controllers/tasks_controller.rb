@@ -1,16 +1,18 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:edit, :show, :update, :destroy]
+  before_action :require_user_logged_in
+  before_action :correct_user, only: [:edit, :update, :show, :destory]
   
   def index
-    @tasks = Task.all
+      @tasks = current_user.tasks
   end
   
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.new(task_params)
     
     if @task.save
       flash[:success] = "タスクが正常に投稿されました。"
-      redirect_to @task
+      redirect_to root_url
     else
       flash[:danger] = "タスクが投稿されませんでした"
       render :new
@@ -54,6 +56,13 @@ class TasksController < ApplicationController
   
   def task_params
     params.require(:task).permit(:content, :status)
+  end
+
+  def correct_user
+    @micropost = current_user.tasks.find_by(id: params[:id])
+    unless @tasks
+    redirect_to login_url
+    end
   end
 
 end

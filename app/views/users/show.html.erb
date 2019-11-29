@@ -1,12 +1,7 @@
-<div class="row">
-  <aside class="col-sm-4">
-    
-      <div class="header">
-        <h3 class="title"><%= @user.name %></h3>
-      </div>
-      <div class="body">
-        
-      </div>
-  </aside>
-  
+<div class="header">
+  <h3 class="title">ユーザー名：<%= @user.name %></h3>
+</div>
+
+<div class="body">
+  <%= link_to "ログイン画面へ", login_path %>      
 </div>
