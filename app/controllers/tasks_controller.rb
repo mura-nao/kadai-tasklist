@@ -60,7 +60,7 @@ class TasksController < ApplicationController
 
   def correct_user
     @micropost = current_user.tasks.find_by(id: params[:id])
-    unless @tasks
+    unless @micropost
     redirect_to login_url
     end
   end
